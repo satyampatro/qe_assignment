@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const book = require("../modules/book");
-const {isCreator,isViewAll} = require("../middleware/authJwt");
+const { isCreator, isViewAll } = require("../middleware/authJwt");
 
-router.post("/", isCreator, (req, res) => {
+router.post("/", isCreator, async (req, res) => {
   try {
     const result = await book.createBook(req.body);
     res.status(200).send(result);
@@ -12,7 +12,7 @@ router.post("/", isCreator, (req, res) => {
   }
 });
 
-router.get("/", isViewAll, (req, res) => {
+router.get("/", isViewAll, async (req, res) => {
   try {
     const result = await book.fetchBook(req.query);
     res.status(200).send(result);
@@ -21,7 +21,7 @@ router.get("/", isViewAll, (req, res) => {
   }
 });
 
-router.put("/", isCreator, (req, res) => {
+router.put("/", isCreator, async (req, res) => {
   try {
     const result = await book.updateBook(req.query);
     res.status(200).send(result);
@@ -30,7 +30,7 @@ router.put("/", isCreator, (req, res) => {
   }
 });
 
-router.delete("/", isCreator, (req, res) => {
+router.delete("/", isCreator, async (req, res) => {
   try {
     const result = await book.deleteBook(req.body);
     res.status(200).send(result);
